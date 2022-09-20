@@ -89,12 +89,18 @@ pulse_df
 
 
 ## Data Export
-
 #### save the csv file in the relative path
 ```{r}
 write_csv(Lotr_words_df,file = "data/lotr_words_df.csv")
 ```
 
+
+
+## why not use the baseR
+```{r}
+dont_do_this_df <- read.csv("data/FAS_litters.csv")
+dont_do_this_df
+```
 
 
 
