@@ -18,21 +18,46 @@ library(tidyverse) # contains readr
 # folder name/file name.format  under the r project
 # do not miss the file format like the .csv
 litters_df <- read_csv("data/FAS_litters.csv")
+# read_csv will guess the type of the columns
+# read_csv(col_types=) # change the type when it is automatically wrong
+
+
 litters_df <- janitor::clean_names(litters_df)  
 # do not need to library(janitor) for loading too many things
 # we only need the clean_names funtion in janitor
 litters_df
 
+```
 
+#### look at the data
 
+```{r}
+litters_df
 
+head(litters_df)  # first 6 lines
+tail(litters_df)
+```
+
+```{r,eval=TRUE}
+View(litters_df) # view the whole data set
+                 # do not shown in the knitted file
 
 ```
 
-# Section 2
+```{r}
+skimr::skim(litters_df)    # skim function in the skimr package
+```
 
+#### `read_csv` options : the parameters in the function
 
+```{r,eval=FALSE}
+litters_df <- read_csv("data/FAS_litters.csv",na=c("","NA"),skip=2)
+# skip 2 rows
+# change na
+# change col_types
+```
 
+## Other File Formats
 
 
 
