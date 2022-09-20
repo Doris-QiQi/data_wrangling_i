@@ -3,19 +3,36 @@ title: "Data Import"
 output: github_document
 ---
 
-I'm an R Markdown document! 
+#### load the needed packages to import data
+#### `readr` is in the tidyverse package
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse) # contains readr
+```
 
-# Section 1
 
-Here's a **code chunk** that samples from 
-a _normal distribution_:
+## Data Import : CSVs
 
+#### import data with `readr` package
 ```{r}
-samp = rnorm(100)
-length(samp)
+# use a relative path
+# folder name/file name.format  under the r project
+# do not miss the file format like the .csv
+litters_df <- read_csv("data/FAS_litters.csv")
+litters_df <- janitor::clean_names(litters_df)  
+# do not need to library(janitor) for loading too many things
+# we only need the clean_names funtion in janitor
+litters_df
+
+
+
+
+
 ```
 
 # Section 2
 
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
+
+
+
+
+
