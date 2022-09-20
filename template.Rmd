@@ -30,7 +30,6 @@ litters_df
 ```
 
 #### look at the data
-
 ```{r}
 litters_df
 
@@ -49,7 +48,6 @@ skimr::skim(litters_df)    # skim function in the skimr package
 ```
 
 #### `read_csv` options : the parameters in the function
-
 ```{r,eval=FALSE}
 litters_df <- read_csv("data/FAS_litters.csv",na=c("","NA"),skip=2)
 # skip 2 rows
@@ -57,7 +55,27 @@ litters_df <- read_csv("data/FAS_litters.csv",na=c("","NA"),skip=2)
 # change col_types
 ```
 
+
+
 ## Other File Formats
 
+#### read in excel spreadsheet
+```{r}
+library(readxl)
+mlb_df <- read_excel("data/mlb11.xlsx")
+```
+
+```{r,eval=FALSE}
+View(mlb_df)
+```
+
+```{r}
+Lotr_words_df<-read_excel("data/LotR_Words.xlsx",range="B3:D6")
+```
+
+
+## Still more formats
+
+#### read in a SAS dataset
 
 
