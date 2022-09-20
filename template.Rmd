@@ -1,6 +1,6 @@
 ---
-title: "Simple document"
-output: html_document
+title: "Data Import"
+output: github_document
 ---
 
 I'm an R Markdown document! 
