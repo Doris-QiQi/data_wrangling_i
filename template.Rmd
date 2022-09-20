@@ -70,12 +70,31 @@ View(mlb_df)
 ```
 
 ```{r}
-Lotr_words_df<-read_excel("data/LotR_Words.xlsx",range="B3:D6")
+Lotr_words_df <- read_excel("data/LotR_Words.xlsx",range="B3:D6")
+Lotr_words_df
+
 ```
 
 
 ## Still more formats
 
 #### read in a SAS dataset
+```{r}
+library(haven)
+
+pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
+
+pulse_df
+```
+
+
+## Data Export
+
+#### save the csv file in the relative path
+```{r}
+write_csv(Lotr_words_df,file = "data/lotr_words_df.csv")
+```
+
+
 
 
