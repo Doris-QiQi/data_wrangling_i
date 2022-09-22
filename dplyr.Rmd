@@ -1,0 +1,112 @@
+---
+title: "Data manipulation with `dplyr`"
+author: "Jingyi Yao"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+## **`options()`**? the global printing settings?
+```{r}
+library(tidyverse)
+
+options(tibble.print_min = 3)  # how the data is shown when there are too much data\
+
+```
+
+```{r}
+litters_data = read_csv("./data/FAS_litters.csv",
+  col_types = "ccddiiii")      # control the types of variables
+litters_data = janitor::clean_names(litters_data)
+
+pups_data = read_csv("./data/FAS_pups.csv",
+  col_types = "ciiiii")
+pups_data = janitor::clean_names(pups_data) # clean names with _ and eliminate other symbols
+```
+
+
+## **`select`** columns
+#### only need a subset of the columns in a data table
+#### extracting only what you need can helpfully de-clutter, when you have large datasets. 
+
+### **`select()`** fucntion
+#### specify the columns you want to keep by naming all of them:
+```{r}
+select(litters_data, group, litter_number, gd0_weight, pups_born_alive)
+
+```
+
+### specify a **range of columns**
+#### do not need to type all the names
+#### the range has to be continuous? 
+```{r}
+select(litters_data, group:gd_of_birth) 
+```
+
+### **remove** columns:
+#### put a minus sign `-` before the column name
+```{r}
+select(litters_data, -pups_survive)
+```
+
+### **rename** the variable while selecting variables
+#### format: `new_name = old name`
+```{r}
+select(litters_data, GROUP = group, LiTtEr_NuMbEr = litter_number)
+```
+
+### **`remame()`** function
+#### rename but will return all the variables without selecting
+```{r}
+rename(litters_data, GROUP = group, LiTtEr_NuMbEr = litter_number)  # a fucntion in tidyverse
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
+
+```{r}
+
+
+```
