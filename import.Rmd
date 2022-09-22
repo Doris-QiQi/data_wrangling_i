@@ -1,0 +1,108 @@
+---
+title: "Data Import"
+output: github_document
+---
+
+#### load the needed packages to import data
+#### `readr` is in the tidyverse package
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse) # contains readr
+install.packages("XQuartz")
+library(XQuartz)
+```
+
+
+## Data Import : CSVs
+
+#### import data with `readr` package
+```{r}
+# use a relative path
+# folder name/file name.format  under the r project
+# do not miss the file format like the .csv
+litters_df <- read_csv("data/FAS_litters.csv")
+# read_csv will guess the type of the columns
+# read_csv(col_types=) # change the type when it is automatically wrong
+
+
+litters_df <- janitor::clean_names(litters_df)  
+# do not need to library(janitor) for loading too many things
+# we only need the clean_names funtion in janitor
+litters_df
+
+```
+
+#### look at the data
+```{r}
+litters_df
+
+head(litters_df)  # first 6 lines
+tail(litters_df)
+```
+
+```{r,eval=TRUE}
+View(litters_df) # view the whole data set
+                 # do not shown in the knitted file
+
+```
+
+```{r}
+skimr::skim(litters_df)    # skim function in the skimr package
+```
+
+#### `read_csv` options : the parameters in the function
+```{r,eval=FALSE}
+litters_df <- read_csv("data/FAS_litters.csv",na=c("","NA"),skip=2)
+# skip 2 rows
+# change na
+# change col_types
+```
+
+
+
+## Other File Formats
+
+#### read in excel spreadsheet
+```{r}
+library(readxl)
+mlb_df <- read_excel("data/mlb11.xlsx")
+```
+
+```{r,eval=FALSE}
+View(mlb_df)
+```
+
+```{r}
+Lotr_words_df <- read_excel("data/LotR_Words.xlsx",range="B3:D6")
+Lotr_words_df
+
+```
+
+
+## Still more formats
+
+#### read in a SAS dataset
+```{r}
+library(haven)
+
+pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
+
+pulse_df
+```
+
+
+## Data Export
+#### save the csv file in the relative path
+```{r}
+write_csv(Lotr_words_df,file = "data/lotr_words_df.csv")
+```
+
+
+
+## why not use the baseR
+```{r}
+dont_do_this_df <- read.csv("data/FAS_litters.csv")
+dont_do_this_df
+```
+
+
+
