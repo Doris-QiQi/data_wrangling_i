@@ -407,9 +407,11 @@ litters_data
 
 #### except select,mutate,arrange,filter, we can use `%>%` for other functions
 
+#### in `lm()`,the argument `data=.` cannot be left out, we use `.` to represent the data
+
 ``` r
 litters_data %>%
-  lm(wt_gain ~ pups_born_alive, data = .) %>%
+  lm(wt_gain ~ pups_born_alive, data = .) %>%    # data = . must be written
   broom::tidy()
 ```
 
@@ -418,3 +420,28 @@ litters_data %>%
     ##   <chr>              <dbl>     <dbl>     <dbl>    <dbl>
     ## 1 (Intercept)       13.1       1.27      10.3  3.39e-11
     ## 2 pups_born_alive    0.605     0.173      3.49 1.55e- 3
+
+################################################################################################### 
+
+## VI. Learning Check:
+
+#### Learning Assessment: Write a chain of commands that:
+
+-   loads the pups data
+-   cleans the variable names
+-   filters the data to include only pups with sex 1
+-   removes the PD ears variable
+-   creates a variable that indicates whether PD pivot is 7 or more days
+
+``` r
+df <- pups_data %>% janitor::clean_names() %>% filter(sex==1) %>% select(- pd_ears)%>% mutate(PD_status = pd_pivot>7) 
+df
+```
+
+    ## # A tibble: 155 × 6
+    ##   litter_number   sex pd_eyes pd_pivot pd_walk PD_status
+    ##   <chr>         <int>   <int>    <int>   <int> <lgl>    
+    ## 1 #85               1      13        7      11 FALSE    
+    ## 2 #85               1      13        7      12 FALSE    
+    ## 3 #1/2/95/2         1      13        7       9 FALSE    
+    ## # … with 152 more rows
