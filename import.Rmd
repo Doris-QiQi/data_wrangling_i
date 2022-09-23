@@ -3,74 +3,116 @@ title: "Data Import"
 output: github_document
 ---
 
-#### load the needed packages to import data
+
 #### `readr` is in the tidyverse package
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(tidyverse) # contains readr
-install.packages("XQuartz")
-library(XQuartz)
+
 ```
 
 
-## Data Import : CSVs
+## I. Data Import : CSVs
 
-#### import data with `readr` package
+### 1. import data with `readr` package
+
+####  use a *relative* path
+####  `folder name/file name.format`  under the r project
+####  do not miss the file format like the `.csv`
+####  `read_csv()` will guess the type of the columns
+####  `read_csv(col_types="ccddii")` change the type when it is automatically wrong
 ```{r}
-# use a relative path
-# folder name/file name.format  under the r project
-# do not miss the file format like the .csv
 litters_df <- read_csv("data/FAS_litters.csv")
-# read_csv will guess the type of the columns
-# read_csv(col_types=) # change the type when it is automatically wrong
+
+``` 
 
 
+
+### 2. clean column names with `janitor::clean_names()`
+
+#### do not need to library(janitor) for loading too many things
+#### we only need the clean_names funtion in janitor
+```{r}
 litters_df <- janitor::clean_names(litters_df)  
-# do not need to library(janitor) for loading too many things
-# we only need the clean_names funtion in janitor
 litters_df
 
 ```
 
-#### look at the data
+
+### 3. look at the data with `head()` and `tail()`
 ```{r}
 litters_df
 
 head(litters_df)  # first 6 lines
 tail(litters_df)
 ```
+#### `head()` shows the first 6 rows
+#### `tail()` shows the last 6 rows
 
-```{r,eval=TRUE}
-View(litters_df) # view the whole data set
-                 # do not shown in the knitted file
 
-```
+### 4. view the whole data frame with `View()`
 
+#### view the whole data set in a new window
+#### the result will not be shown in the knitted file
+
+
+### 5. `skim()` function in the `skimr` package
+
+#### first part of the result is the data summary table
+#### then it shows the statistics for each variable(column)
+#### statistics include : 
+     *  number of missing values
+     *  complete rate
+     *  mean
+     *  sd
+     *  quartiles
+     *  histogram
 ```{r}
-skimr::skim(litters_df)    # skim function in the skimr package
+skimr::skim(litters_df)    
+
 ```
 
-#### `read_csv` options : the parameters in the function
+
+### 6. `read_csv` argument options : the parameters in the function
+
+#### for example:
+    *  skip 2 rows
+    *  change na
+    *  change col_types
+    
+#### `skip= number` how many row to skip
+#### `na=c("","NA",".")` means: `""`,`"."` and `"NA"` will be treated as na in R
+#### tips: `NA` need the quotation marks `"NA"` to be in a vector
+    
 ```{r,eval=FALSE}
 litters_df <- read_csv("data/FAS_litters.csv",na=c("","NA"),skip=2)
-# skip 2 rows
-# change na
-# change col_types
+
 ```
 
+    
 
 
-## Other File Formats
+#################################################################################################
 
-#### read in excel spreadsheet
+
+
+##II. Import: *EXCEL* spreadsheet
+
+### 1. ``read_excel` from `readxl` package
 ```{r}
 library(readxl)
 mlb_df <- read_excel("data/mlb11.xlsx")
-```
 
+```
+#### also using the relative route
+
+
+### 2. `View()` also applied to excel sheets
 ```{r,eval=FALSE}
 View(mlb_df)
 ```
 
+
+### 3. read *PART OF* the table in EXCEL by claiming the *RANGE*
 ```{r}
 Lotr_words_df <- read_excel("data/LotR_Words.xlsx",range="B3:D6")
 Lotr_words_df
@@ -78,27 +120,36 @@ Lotr_words_df
 ```
 
 
-## Still more formats
+#################################################################################################
 
-#### read in a SAS dataset
+
+
+## III. Import: *SAS* dataset
+
+### 1. `read_sas` in `haven` package
 ```{r}
 library(haven)
-
 pulse_df <- read_sas("data/public_pulse_data.sas7bdat")
-
 pulse_df
+
 ```
 
 
-## Data Export
-#### save the csv file in the relative path
+
+#################################################################################################
+
+
+## IV: Data *Export*
+
+### 1. save the *csv* file in the relative path
+#### use `write_csv(name of the file,path)` to export the csv file
 ```{r}
 write_csv(Lotr_words_df,file = "data/lotr_words_df.csv")
 ```
 
 
-
 ## why not use the baseR
+### we do not use the `read.csv()`
 ```{r}
 dont_do_this_df <- read.csv("data/FAS_litters.csv")
 dont_do_this_df
