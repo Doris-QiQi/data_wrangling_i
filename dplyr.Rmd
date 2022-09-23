@@ -32,7 +32,7 @@ pups_data = janitor::clean_names(pups_data) # clean names with _ and eliminate o
 ```
 
 
-###############################################################################
+###################################################################################################
 
 
 ## I. `select` columns
@@ -114,7 +114,7 @@ relocate(litters_data, litter_number, pups_survive)
 
 
 
-#########################################################################################
+###################################################################################################
 
 
 
@@ -153,7 +153,8 @@ filter(pups_data, sex == 2, pd_walk < 11)
 
 
 
-################################################################################################
+
+###################################################################################################
 
 
 
@@ -176,11 +177,15 @@ mutate(litters_data,
 ```
 
 
-##############################################################################################
+
+###################################################################################################
+
 
 
 ## IV. `arrange()` sort the data
-#### format: 
+#### format: `arrange(df, col_1,col_2,...)`
+#### we may arrange the df by many columns but they have an internla order
+#### the default order is ascending, otherwise we need to add `desc(col)` to change it
 ```{r}
 head(arrange(litters_data, group, pups_born_alive), 10) # default : ascending
 
@@ -188,7 +193,12 @@ head(arrange(litters_data, desc(group), pups_born_alive), 10) # change : desc(co
 ```
 
 
-## V. pipes: `%>%` for **multi-step** data manipulation
+
+###################################################################################################
+
+
+
+## V. pipes: `%>%` for *multi-step* data manipulation
 ### Cmd + Shift + M (Mac) to generate ` %>% `
 ```{r}
 litters_data = 
@@ -203,6 +213,7 @@ litters_data =
 litters_data
 ```
 
+#### except select,mutate,arrange,filter, we can use `%>%` for other functions 
 ```{r}
 litters_data %>%
   lm(wt_gain ~ pups_born_alive, data = .) %>%

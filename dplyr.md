@@ -1,7 +1,7 @@
 Data manipulation with `dplyr`
 ================
 Jingyi Yao
-2022-09-22
+2022-09-23
 
 ## Preparation Work
 
@@ -46,9 +46,9 @@ pups_data = read_csv("./data/FAS_pups.csv",
 pups_data = janitor::clean_names(pups_data) # clean names with _ and eliminate other symbols
 ```
 
-############################################################################### 
+################################################################################################### 
 
-## I. **`select`** columns
+## I. `select` columns
 
 #### only need a subset of the columns in a data table
 
@@ -72,7 +72,7 @@ select(litters_data, group, litter_number, gd0_weight, pups_born_alive)
     ## 3 Con7  #5/5/3/83/3-3       26                 6
     ## # … with 46 more rows
 
-### 2. specify a **range of columns**
+### 2. specify a *range of columns*
 
 #### do not need to type all the names
 
@@ -90,7 +90,7 @@ select(litters_data, group:gd_of_birth)
     ## 3 Con7  #5/5/3/83/3-3       26          41.4          19
     ## # … with 46 more rows
 
-### 3. **remove** columns:
+### 3. *remove* columns:
 
 #### put a minus sign `-` before the column name
 
@@ -106,7 +106,7 @@ select(litters_data, -pups_survive)
     ## 3 Con7  #5/5/3/83/3-3       26          41.4          19               6       0
     ## # … with 46 more rows, and abbreviated variable name ¹​pups_dead_birth
 
-### 4. `rename(new_col_name = old_col_name)` the variable **while selecting** variables
+### 4. `rename(new_col_name = old_col_name)` the variable *while selecting* variables
 
 #### format: `new_name = old name`
 
@@ -143,7 +143,7 @@ rename(litters_data, GROUP = group, LiTtEr_NuMbEr = litter_number)  # a function
 
 #### using `?select_helpers`
 
-#### when there variables are named with **suffixes** or other **standard patterns**:
+#### when there variables are named with *suffixes* or other *standard patterns*:
 
 ``` r
 select(litters_data, starts_with("gd"))    # variable starts with gd
@@ -238,7 +238,7 @@ relocate(litters_data, litter_number, pups_survive)
     ## # … with 46 more rows, and abbreviated variable names ¹​gd18_weight,
     ## #   ²​gd_of_birth, ³​pups_born_alive, ⁴​pups_dead_birth
 
-######################################################################################### 
+################################################################################################### 
 
 ## II. `filter()` – filter out *rows*
 
@@ -296,18 +296,20 @@ filter(pups_data, sex == 2, pd_walk < 11)
     ## 3 #1/2/95/2         2       5      13        8      10
     ## # … with 124 more rows
 
-################################################################################################ 
+################################################################################################### 
 
-## III. `mutate()` create **new variables** to the tibble
+## III. `mutate()` *create new variables* to the tibble
 
 ### 1. `mutate(new_col = function(old_columns))` add new columns using the old columns
 
 -   Your new variables can be functions of old variables
--   New variables appear at the end of the dataset in the order that
-    they are created
+-   New variables appear **at the end** of the df in the order that they
+    are created
 -   You can overwrite old variables
 -   You can create a new variable and immediately refer to (or change)
     it
+
+#### `str_to_lower(col)` change the character all to lower case
 
 ``` r
 mutate(litters_data,
@@ -325,7 +327,15 @@ mutate(litters_data,
     ## # … with 46 more rows, and abbreviated variable names ¹​gd18_weight,
     ## #   ²​gd_of_birth, ³​pups_born_alive, ⁴​pups_dead_birth, ⁵​pups_survive
 
+################################################################################################### 
+
 ## IV. `arrange()` sort the data
+
+#### format: `arrange(df, col_1,col_2,...)`
+
+#### we may arrange the df by many columns but they have an internla order
+
+#### the default order is ascending, otherwise we need to add `desc(col)` to change it
 
 ``` r
 head(arrange(litters_data, group, pups_born_alive), 10) # default : ascending
@@ -367,7 +377,9 @@ head(arrange(litters_data, desc(group), pups_born_alive), 10) # change : desc(co
     ## # … with abbreviated variable names ¹​gd_of_birth, ²​pups_born_alive,
     ## #   ³​pups_dead_birth, ⁴​pups_survive
 
-## V. pipes: `%>%` for **multi-step** data manipulation
+################################################################################################### 
+
+## V. pipes: `%>%` for *multi-step* data manipulation
 
 ### Cmd + Shift + M (Mac) to generate `%>%`
 
@@ -392,6 +404,8 @@ litters_data
     ## 3 con7  #5/5/3/83/3-3       26          41.4          19       6       0    15.4
     ## # … with 28 more rows, and abbreviated variable names ¹​pups_born_alive,
     ## #   ²​pups_dead_birth
+
+#### except select,mutate,arrange,filter, we can use `%>%` for other functions
 
 ``` r
 litters_data %>%
